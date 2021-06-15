@@ -1,69 +1,81 @@
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.IntBinaryOperator;
 
 public class Datos
 {
     //ATRIBUTOS
-    private AtomicInteger contadorBitcoin; //Dato sincronizado
-    private int contadorRack, contadorG1, contadorG2, contadorG3, contadorG4;
+    private AtomicInteger contadorBitcoin, contadorRack, contadorG1, contadorG2, contadorG3, contadorG4; //Dato sincronizado
 
     //CONSTRUCTOR
     public Datos() {
         this.contadorBitcoin = new AtomicInteger(); //Inicializa a 0
-        this.contadorRack = 0;
-        this.contadorG1 = 0;
-        this.contadorG2 = 0;
-        this.contadorG3 = 0;
-        this.contadorG4 = 0;
+        this.contadorRack = new AtomicInteger();
+        this.contadorG1 = new AtomicInteger();
+        this.contadorG2 = new AtomicInteger();
+        this.contadorG3 = new AtomicInteger();
+        this.contadorG4 = new AtomicInteger();
     }
 
     //GETTERS Y SETTERS
     //getters
-    public AtomicInteger getContadorBitcoin() {
-        return contadorBitcoin;
+    public int getContadorBitcoin() {
+        return contadorBitcoin.get();
     }
 
     public int getContadorRack() {
-        return contadorRack;
+        return contadorRack.get();
     }
 
     public int getContadorG1() {
-        return contadorG1;
+        return contadorG1.get();
     }
 
     public int getContadorG2() {
-        return contadorG2;
+        return contadorG2.get();
     }
 
     public int getContadorG3() {
-        return contadorG3;
+        return contadorG3.get();
     }
 
     public int getContadorG4() {
-        return contadorG4;
+        return contadorG4.get();
     }
 
     //setters
-    public void setContadorBitcoin(AtomicInteger contadorBitcoin) {
-        this.contadorBitcoin = contadorBitcoin;
+    public int addContadorBitcoin(int x) {
+            return contadorBitcoin.addAndGet(x);
     }
 
-    public void setContadorRack(int contadorRack) {
-        this.contadorRack = contadorRack;
+    public int addContadorRack(int x) {
+        if (contadorBitcoin.get() < 10)
+        {
+            return this.contadorRack.addAndGet(0);
+        }
+        else
+        {
+            contadorBitcoin.addAndGet(-10);
+            CoinManager.contadorBitcoin.setText(contadorBitcoin.get());
+            return this.contadorRack.addAndGet(x);
+        }
     }
 
-    public void setContadorG1(int contadorG1) {
-        this.contadorG1 = contadorG1;
+    public int addContadorG1(int x) {
+        return this.contadorG1.addAndGet(x);
     }
 
-    public void setContadorG2(int contadorG2) {
-        this.contadorG2 = contadorG2;
+    public int addContadorG2(int x) {
+        return this.contadorG2.addAndGet(x);
     }
 
-    public void setContadorG3(int contadorG3) {
-        this.contadorG3 = contadorG3;
+    public int addContadorG3(int x) {
+        return this.contadorG3.addAndGet(x);
     }
 
-    public void setContadorG4(int contadorG4) {
-        this.contadorG4 = contadorG4;
+    public int addContadorG4(int x) {
+        return this.contadorG4.addAndGet(x);
     }
+
+    //MÉTODOS
+
 }
