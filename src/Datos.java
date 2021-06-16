@@ -55,7 +55,6 @@ public class Datos
         else
         {
             contadorBitcoin.addAndGet(-10);
-            CoinManager.contadorBitcoin.setText(contadorBitcoin.get());
             return this.contadorRack.addAndGet(x);
         }
     }

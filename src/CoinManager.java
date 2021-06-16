@@ -22,6 +22,9 @@ public class CoinManager extends JFrame implements ActionListener
     Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize(); //Se utiliza para saber el tamaño de la pantalla
     Datos datos = new Datos();
 
+    //INSTANCIAS
+
+
     public CoinManager() throws InterruptedException {
         //Establecer barra
         barra = establecerBarra(sistema = System.getProperty("os.name"));
@@ -33,8 +36,7 @@ public class CoinManager extends JFrame implements ActionListener
         setSize(900, 270);
         setLocation(pantalla.width/2-this.getSize().width/2, pantalla.height/2-this.getSize().height/2);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(null);
-        setVisible(true);
+        setLocationRelativeTo(null);
 
         //PESTAÑAS
         tabPane = new JTabbedPane();
@@ -61,12 +63,12 @@ public class CoinManager extends JFrame implements ActionListener
         bitCoin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    //actualiza el contador de bitcoin
-                    datos.addContadorBitcoin(1);
-                    contadorBitCoin.setText(String.valueOf(datos.getContadorBitcoin()));
+                //actualiza el contador de bitcoin
+                datos.addContadorBitcoin(1);
+                contadorBitCoin.setText(String.valueOf(datos.getContadorBitcoin()));
 
-                    //reproduce sonido
+                //reproduce sonido
+                try { //PLIN
                     soundPlin(ruta, barra);
                 } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
                     unsupportedAudioFileException.printStackTrace();
@@ -105,74 +107,213 @@ public class CoinManager extends JFrame implements ActionListener
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                try
+                if (datos.getContadorBitcoin() >= 5)
                 {
+                    try { //PLIN
+                        soundPlin(ruta, barra);
+                    } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
+                        unsupportedAudioFileException.printStackTrace();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    } catch (LineUnavailableException lineUnavailableException) {
+                        lineUnavailableException.printStackTrace();
+                    }
                     datos.addContadorRack(1);
-                    rack.setText("Armario rack " + datos.getContadorRack() + " Price: 10 B");
-
-                    soundCachin(ruta, barra);
-                } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
-                    unsupportedAudioFileException.printStackTrace();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                } catch (LineUnavailableException lineUnavailableException) {
-                    lineUnavailableException.printStackTrace();
+                    rack.setText("Armario rack " + datos.getContadorRack() + " Price: 5 B");
+                    contadorBitCoin.setText(String.valueOf(datos.getContadorBitcoin()));
+                }
+                else
+                {
+                    try { //ERROR
+                        soundError(ruta, barra);
+                    } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
+                        unsupportedAudioFileException.printStackTrace();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    } catch (LineUnavailableException lineUnavailableException) {
+                        lineUnavailableException.printStackTrace();
+                    }
                 }
             }
         });
 
-        /*contadorRack = new JTextArea();
-        contadorRack.setSize(20, 20);
-        contadorRack.setText(String.valueOf(datos.getContadorRack())); //Valor inicial 0*/
-
         //g1
-        g1 = new JButton("Gráfica 1", iconG1 = new ImageIcon(ruta + "Sprites" + barra + "g1.png")); //(Nombre del botón, imagen)
+        g1 = new JButton("Gráfica 1" + String.valueOf(datos.getContadorG1()) + " Price: 10 B", iconG1 = new ImageIcon(ruta + "Sprites" + barra + "g1.png")); //(Nombre del botón, imagen)
         g1.setSize(200, 200);
         g1.setHorizontalTextPosition(JButton.CENTER); //Establece la posición horizontal del texto (CENTRO en este caso)
         g1.setVerticalTextPosition(JButton.BOTTOM); //Establece la posición vertical del texto (ABAJO en este caso)
         g1.setContentAreaFilled(false); //Quitar el fondo del botón
-
-        contadorG1 = new JTextArea();
-        contadorG1.setText(String.valueOf(datos.getContadorG1())); //Valor inicial 0
+        g1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                if (datos.getContadorBitcoin() >= 10)
+                {
+                    try { //PLIN
+                        soundPlin(ruta, barra);
+                    } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
+                        unsupportedAudioFileException.printStackTrace();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    } catch (LineUnavailableException lineUnavailableException) {
+                        lineUnavailableException.printStackTrace();
+                    }
+                    datos.addContadorG1(1);
+                    g1.setText("Gráfica 1 " + datos.getContadorG1() + " Price: 10 B");
+                    contadorBitCoin.setText(String.valueOf(datos.getContadorBitcoin()));
+                }
+                else
+                {
+                    try { //ERROR
+                        soundError(ruta, barra);
+                    } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
+                        unsupportedAudioFileException.printStackTrace();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    } catch (LineUnavailableException lineUnavailableException) {
+                        lineUnavailableException.printStackTrace();
+                    }
+                }
+            }
+        });
 
         //g2
-        g2 = new JButton("Gráfica 2", iconG2 = new ImageIcon(ruta + "Sprites" + barra + "g2.png")); //(Nombre del botón, imagen)
+        g2 = new JButton("Gráfica 2" + String.valueOf(datos.getContadorG2()) + " Price: 15 B", iconG2 = new ImageIcon(ruta + "Sprites" + barra + "g2.png")); //(Nombre del botón, imagen)
         g2.setSize(200, 200);
         g2.setHorizontalTextPosition(JButton.CENTER); //Establece la posición horizontal del texto (CENTRO en este caso)
         g2.setVerticalTextPosition(JButton.BOTTOM); //Establece la posición vertical del texto (ABAJO en este caso)
         g2.setContentAreaFilled(false); //Quitar el fondo del botón
+        g2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                if (datos.getContadorBitcoin() >= 15)
+                {
+                    try { //PLIN
+                        soundPlin(ruta, barra);
+                    } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
+                        unsupportedAudioFileException.printStackTrace();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    } catch (LineUnavailableException lineUnavailableException) {
+                        lineUnavailableException.printStackTrace();
+                    }
+                    datos.addContadorG2(1);
+                    g2.setText("Gráfica 2 " + datos.getContadorG2() + " Price: 15 B");
+                    contadorBitCoin.setText(String.valueOf(datos.getContadorBitcoin()));
+                }
+                else
+                {
+                    try { //ERROR
+                        soundError(ruta, barra);
+                    } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
+                        unsupportedAudioFileException.printStackTrace();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    } catch (LineUnavailableException lineUnavailableException) {
+                        lineUnavailableException.printStackTrace();
+                    }
+                }
+            }
+        });
 
-        contadorG2 = new JTextArea();
-        contadorG2.setText(String.valueOf(datos.getContadorG2())); //Valor inicial 0
 
         //g3
-        g3 = new JButton("Gráfica 3", iconG3 = new ImageIcon(ruta + "Sprites" + barra + "g3.png")); //(Nombre del botón, imagen)
+        g3 = new JButton("Gráfica 3" + String.valueOf(datos.getContadorG3()) + " Price: 20 B", iconG3 = new ImageIcon(ruta + "Sprites" + barra + "g3.png")); //(Nombre del botón, imagen)
         g3.setSize(200, 200);
         g3.setHorizontalTextPosition(JButton.CENTER); //Establece la posición horizontal del texto (CENTRO en este caso)
         g3.setVerticalTextPosition(JButton.BOTTOM); //Establece la posición vertical del texto (ABAJO en este caso)
         g3.setContentAreaFilled(false); //Quitar el fondo del botón
+        rack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                if (datos.getContadorBitcoin() >= 20)
+                {
+                    try { //PLIN
+                        soundPlin(ruta, barra);
+                    } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
+                        unsupportedAudioFileException.printStackTrace();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    } catch (LineUnavailableException lineUnavailableException) {
+                        lineUnavailableException.printStackTrace();
+                    }
+                    datos.addContadorG3(1);
+                    g3.setText("Gráfica 3 " + datos.getContadorG3() + " Price: 20 B");
+                    contadorBitCoin.setText(String.valueOf(datos.getContadorBitcoin()));
+                }
+                else
+                {
+                    try { //ERROR
+                        soundError(ruta, barra);
+                    } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
+                        unsupportedAudioFileException.printStackTrace();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    } catch (LineUnavailableException lineUnavailableException) {
+                        lineUnavailableException.printStackTrace();
+                    }
+                }
+            }
+        });
 
-        contadorG3 = new JTextArea();
-        contadorG3.setText(String.valueOf(datos.getContadorG3())); //Valor inicial 0
 
         //g4
-        g4 = new JButton("Gráfica 4", iconG4 = new ImageIcon(ruta + "Sprites" + barra + "g4.png")); //(Nombre del botón, imagen)
+        ItemsTienda g4I = new ItemsTienda("Gráfica 4", 25, 5, new ImageIcon(ruta + "Sprites" + barra + "g4.png"));
+        g4I.getActionListeners();
+
+        /*g4 = new JButton(g4I.getNombre() + " " + String.valueOf(g4I.getContador()) + " Price: " + String.valueOf(g4I.getPrecio()) + "B", iconG4 = new ImageIcon(ruta + "Sprites" + barra + "g4.png")); //(Nombre del botón, imagen)
         g4.setSize(200, 200);
         g4.setHorizontalTextPosition(JButton.CENTER); //Establece la posición horizontal del texto (CENTRO en este caso)
         g4.setVerticalTextPosition(JButton.BOTTOM); //Establece la posición vertical del texto (ABAJO en este caso)
         g4.setContentAreaFilled(false); //Quitar el fondo del botón
+        rack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                if (datos.getContadorBitcoin() >= 25)
+                {
+                    try { //PLIN
+                        soundPlin(ruta, barra);
+                    } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
+                        unsupportedAudioFileException.printStackTrace();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    } catch (LineUnavailableException lineUnavailableException) {
+                        lineUnavailableException.printStackTrace();
+                    }
+                    datos.addContadorG4(1);
+                    g4.setText("Gráfica 4 " + datos.getContadorG4() + " Price: 25 B");
+                    contadorBitCoin.setText(String.valueOf(datos.getContadorBitcoin()));
+                }
+                else
+                {
+                    try { //ERROR
+                        soundError(ruta, barra);
+                    } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
+                        unsupportedAudioFileException.printStackTrace();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    } catch (LineUnavailableException lineUnavailableException) {
+                        lineUnavailableException.printStackTrace();
+                    }
+                }
+            }
+        });*/
 
-        contadorG4 = new JTextArea();
-        contadorG4.setText(String.valueOf(datos.getContadorG4())); //Valor inicial 0
 
         //label tienda
-        JLabel labelTienda = new JLabel("Tienda");
+        JLabel labelTienda = new JLabel("Tienda"); //TODO
 
         tienda.add(rack, BorderLayout.NORTH);
         tienda.add(g1, BorderLayout.NORTH);
         tienda.add(g2, BorderLayout.NORTH);
         tienda.add(g3, BorderLayout.NORTH);
-        tienda.add(g4, BorderLayout.NORTH);
+        tienda.add(g4I.getButton(), BorderLayout.NORTH);
+
+        pack();
+        setVisible(true);
     }
 
     @Override
@@ -196,6 +337,13 @@ public class CoinManager extends JFrame implements ActionListener
         clip.start();
     }
 
+    private static void soundError(String ruta, String barra) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        AudioInputStream plin = AudioSystem.getAudioInputStream(new File(ruta + "Sounds" + barra + "error.wav"));
+        Clip clip = AudioSystem.getClip();
+        clip.open(plin);
+        clip.start();
+    }
+
     private static String establecerBarra(String sistema) //Método para establecer la barra según el SO.
     {
         if (sistema == "Windows 10") //En Windows 10 "\"
@@ -206,5 +354,17 @@ public class CoinManager extends JFrame implements ActionListener
         {
             return "/";
         }
+    }
+
+    public String getBarra() {
+        return barra;
+    }
+
+    public String getSistema() {
+        return sistema;
+    }
+
+    public String getRuta() {
+        return ruta;
     }
 }
