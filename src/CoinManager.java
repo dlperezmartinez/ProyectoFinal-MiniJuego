@@ -35,7 +35,7 @@ public class CoinManager extends JFrame implements ActionListener
 
         //Pestaña MINER
         miner = new JPanel();
-        tabPane.addTab("miner", miner); //Añade el panel miner a la pestaña
+        tabPane.addTab("Minado", miner); //Añade el panel miner a la pestaña
 
         //Pestaña TIENDA
         tienda = new JPanel();
@@ -43,7 +43,9 @@ public class CoinManager extends JFrame implements ActionListener
 
         //CONTENIDO MINER
         //botón bitCoin
-        bitcoinButton = new Botones("Bitcoins", new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "bitcoin.png"));
+        bitcoinButton = new Botones("Bitcoins",
+                        new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "bitcoin.png"),
+                        new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "bitcoinPressed.png"));
         bitcoinButton.getActionListeners();
 
         //adds
@@ -53,23 +55,33 @@ public class CoinManager extends JFrame implements ActionListener
 
         //CONTENIDO TIENDA
         //rack
-        rack = new Botones("Armario rack", 5, 5, new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "rack.png"));
+        rack =  new Botones("Armario rack", 5, 5,
+                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "rack.png"),
+                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "rack.png"));
         rack.getActionListeners();
 
         //g1
-        g1 = new Botones("Gráfica 1", 7, 5, new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g1.png"));
+        g1 =    new Botones("Gráfica 1", 7, 5,
+                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g1.png"),
+                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g1.png"));
         g1.getActionListeners();
 
         //g2
-        g2 = new Botones("Gráfica 2", 10, 5, new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g2.png"));
+        g2 =    new Botones("Gráfica 2", 10, 5,
+                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g2.png"),
+                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g2.png"));
         g2.getActionListeners();
 
         //g3
-        g3 = new Botones("Gráfica 3", 13, 5, new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g3.png"));
+        g3 =    new Botones("Gráfica 3", 13, 5,
+                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g3.png"),
+                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g3.png"));
         g3.getActionListeners();
 
         //g4
-        g4 = new Botones("Gráfica 4", 15, 5, new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g4.png"));
+        g4 =    new Botones("Gráfica 4", 15, 5,
+                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g4.png"),
+                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g4.png"));
         g4.getActionListeners();
 
         //label tienda

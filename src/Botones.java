@@ -25,7 +25,7 @@ public class Botones extends JButton
 
     //CONSTRUCTOR
     //BITCOIN BUTTON
-    public Botones (String nombre, ImageIcon icon)
+    public Botones (String nombre, ImageIcon icon, ImageIcon iconPressed)
     {
         this.nombre = nombre;
         this.icon = icon;
@@ -33,6 +33,7 @@ public class Botones extends JButton
         this.button = new JButton(null, this.icon); //(Nombre, Icono);
         this.button.setPreferredSize(new Dimension(200, 200));
         this.button.setContentAreaFilled(false); //Quitar el fondo del botón
+        this.button.setPressedIcon(iconPressed);
         this.button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -54,7 +55,7 @@ public class Botones extends JButton
     }
 
     //ITEMS TIENDA
-    public Botones(String nombre, int precio, double multiplicador, ImageIcon icon) {
+    public Botones(String nombre, int precio, double multiplicador, ImageIcon icon, ImageIcon iconPressed) {
         this.nombre = nombre;
         this.precio = precio;
         this.multiplicador = multiplicador;
@@ -66,14 +67,16 @@ public class Botones extends JButton
         this.button.setHorizontalTextPosition(JButton.CENTER); //Establece la posición horizontal del texto (CENTRO en este caso)
         this.button.setVerticalTextPosition(JButton.BOTTOM); //Establece la posición vertical del texto (ABAJO en este caso)
         this.button.setContentAreaFilled(false); //Quitar el fondo del botón
+        this.button.setPressedIcon(iconPressed);
         this.button.setText(this.nombre + " " + cantidad.getItem() + " Precio: " + this.precio + " B");
         this.button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (datos.getBitcoin() >= precio)
+                if (datos.getBitcoin() >= getPrecio())
                 {
-                    button.setText(nombre + " " + cantidad.addItem(1) + " Precio: " + precio + " B");
-                    datos.addBitcoin(-precio);
+                    datos.addBitcoin(-getPrecio());
+                    setPrecio(getPrecio()*2);
+                    button.setText(getNombre() + " " + cantidad.addItem(1) + " Precio: " + getPrecio() + " B");
 
                     try {
                         Sonido.cachin();
