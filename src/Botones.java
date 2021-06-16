@@ -13,10 +13,10 @@ public class Botones extends JButton
     //ATRIBUTOS
     private String nombre;
     private int precio;
-    private double multiplicador;
+    private long sumador;
     private final ImageIcon icon;
     private JButton button;
-    private final JLabel labelBitcoin = new JLabel("Bitcoin");
+    private final JLabel labelBitcoin = new JLabel("Bitcoins");
     private JTextArea cantidadBitcoin = new JTextArea();
 
     private static Datos datos = new Datos();
@@ -33,6 +33,10 @@ public class Botones extends JButton
         this.button.setPreferredSize(new Dimension(200, 200));
         this.button.setContentAreaFilled(false); //Quitar el fondo del botón
         this.button.setPressedIcon(iconPressed);
+
+        this.labelBitcoin.setFont(labelBitcoin.getFont().deriveFont(Font.BOLD, 64.0f));
+        this.cantidadBitcoin.setFont(cantidadBitcoin.getFont().deriveFont(Font.BOLD, 64.0f));
+
         this.button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -54,10 +58,10 @@ public class Botones extends JButton
     }
 
     //ITEMS TIENDA
-    public Botones(String nombre, int precio, double multiplicador, ImageIcon icon, ImageIcon iconPressed) {
+    public Botones(String nombre, int precio, long sumador, ImageIcon icon, ImageIcon iconPressed) {
         this.nombre = nombre;
         this.precio = precio;
-        this.multiplicador = multiplicador;
+        this.sumador = sumador;
         this.icon = icon;
         this.cantidad = new Datos();
 
@@ -121,8 +125,8 @@ public class Botones extends JButton
         this.precio = precio;
     }
 
-    public double getMultiplicador() {
-        return multiplicador;
+    public long getSumador() {
+        return sumador;
     }
 
     public JButton getButton()
@@ -138,6 +142,21 @@ public class Botones extends JButton
     public JTextArea getCantidadBitcoin()
     {
         return this.cantidadBitcoin;
+    }
+
+    public long getDatos()
+    {
+        return datos.getBitcoin();
+    }
+
+    public void addDatos(long x)
+    {
+        datos.addBitcoin(x);
+    }
+
+    public int getItem()
+    {
+        return cantidad.getItem();
     }
 }
 

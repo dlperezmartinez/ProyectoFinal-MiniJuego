@@ -27,7 +27,7 @@ public class run extends JFrame
 
         //Comienza el frame
         frame.setTitle("Bitcoin Miner");
-        frame.setSize(900, 270);
+        frame.setSize(950, 270);
         frame.setLocation(pantalla.width/2-frame.getSize().width/2, pantalla.height/2-frame.getSize().height/2);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
@@ -38,6 +38,7 @@ public class run extends JFrame
 
         //Pestaña MINER
         miner = new JPanel();
+        miner.setLayout(new BorderLayout());
         tabPane.addTab("Minado", miner); //Añade el panel miner a la pestaña
 
         //Pestaña TIENDA
@@ -52,45 +53,42 @@ public class run extends JFrame
         bitcoinButton.getActionListeners();
 
         //adds
-        miner.add(bitcoinButton.getButton(), BorderLayout.CENTER);
-        miner.add(bitcoinButton.getLabelBitcoin(), BorderLayout.WEST);
-        miner.add(bitcoinButton.getCantidadBitcoin(), BorderLayout.WEST);
+        miner.add(bitcoinButton.getButton(), BorderLayout.WEST);
+        miner.add(bitcoinButton.getLabelBitcoin(), BorderLayout.CENTER);
+        miner.add(bitcoinButton.getCantidadBitcoin(), BorderLayout.EAST);
 
         //CONTENIDO TIENDA
         //rack
-        rack =  new Botones("Armario rack", 5, 5,
+        /*rack =  new Botones("Armario rack", 5, 5,
                 new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "rack.png"),
                 new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "rack.png"));
-        rack.getActionListeners();
+        rack.getActionListeners();*/
 
         //g1
-        g1 =    new Botones("Gráfica 1", 7, 5,
+        g1 =    new Botones("Gráfica 1", 7, 1,
                 new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g1.png"),
                 new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g1.png"));
         g1.getActionListeners();
 
         //g2
-        g2 =    new Botones("Gráfica 2", 10, 5,
+        g2 =    new Botones("Gráfica 2", 10, 10,
                 new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g2.png"),
                 new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g2.png"));
         g2.getActionListeners();
 
         //g3
-        g3 =    new Botones("Gráfica 3", 13, 5,
+        g3 =    new Botones("Gráfica 3", 13, 50,
                 new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g3.png"),
                 new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g3.png"));
         g3.getActionListeners();
 
         //g4
-        g4 =    new Botones("Gráfica 4", 15, 5,
+        g4 =    new Botones("Gráfica 4", 15, 100,
                 new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g4.png"),
                 new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g4.png"));
         g4.getActionListeners();
 
-        //label tienda
-        JLabel labelTienda = new JLabel("Tienda"); //TODO
-
-        tienda.add(rack.getButton(), BorderLayout.NORTH);
+        //tienda.add(rack.getButton(), BorderLayout.NORTH);
         tienda.add(g1.getButton(), BorderLayout.NORTH);
         tienda.add(g2.getButton(), BorderLayout.NORTH);
         tienda.add(g3.getButton(), BorderLayout.NORTH);
@@ -103,9 +101,18 @@ public class run extends JFrame
         {
             taskTime = System.currentTimeMillis();
 
+            //TIMER
             System.out.println(i++);
 
+            //GENERADOR DE BITCOINS
+            bitcoinButton.addDatos  ( ((g1.getItem() * g1.getSumador())) +
+                                        ((g2.getItem() * g2.getSumador())) +
+                                        ((g3.getItem() * g3.getSumador())) +
+                                        ((g4.getItem() * g4.getSumador()))
+                                    );
 
+            //UPDATE CONTADOR DE BITCOINS
+            bitcoinButton.getCantidadBitcoin().setText(String.valueOf(bitcoinButton.getDatos()));
 
             taskTime = System.currentTimeMillis() - taskTime;
 
@@ -114,8 +121,5 @@ public class run extends JFrame
                 Thread.sleep(sleepTime - taskTime);
             }
         }
-
-
-
     }
 }

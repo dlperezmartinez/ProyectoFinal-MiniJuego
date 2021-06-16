@@ -1,19 +1,22 @@
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class Datos
 {
     //ATRIBUTOS
-    private AtomicInteger bitcoin, item; //Dato sincronizado
+    private AtomicLong bitcoin;
+    private AtomicInteger item; //Dato sincronizado
+
 
     //CONSTRUCTOR
     public Datos() {
-        this.bitcoin = new AtomicInteger(); //Inicializa a 0
+        this.bitcoin = new AtomicLong(); //Inicializa a 0
         this.item = new AtomicInteger();
     }
 
     //GETTERS Y SETTERS
     //getters
-    public int getBitcoin() {
+    public long getBitcoin() {
         return bitcoin.get();
     }
 
@@ -22,7 +25,7 @@ public class Datos
     }
 
     //setters
-    public int addBitcoin(int x) {
+    public long addBitcoin(long x) {
             return bitcoin.addAndGet(x);
     }
 
