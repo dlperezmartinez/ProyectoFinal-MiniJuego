@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Botones extends JButton
 {
@@ -122,6 +121,10 @@ public class Botones extends JButton
         this.precio = precio;
     }
 
+    public double getMultiplicador() {
+        return multiplicador;
+    }
+
     public JButton getButton()
     {
         return this.button;
@@ -136,9 +139,5 @@ public class Botones extends JButton
     {
         return this.cantidadBitcoin;
     }
-
-    //MÉTODOS
-
-
 }
 
