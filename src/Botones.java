@@ -35,7 +35,11 @@ public class Botones extends JButton
         this.button.setPressedIcon(iconPressed);
 
         this.labelBitcoin.setFont(labelBitcoin.getFont().deriveFont(Font.BOLD, 64.0f));
+        //this.labelBitcoin.setHorizontalAlignment(CENTER);
+
+        this.cantidadBitcoin.setBackground(Color.white);
         this.cantidadBitcoin.setFont(cantidadBitcoin.getFont().deriveFont(Font.BOLD, 64.0f));
+        //this.cantidadBitcoin.setAlignmentX(CENTER);
 
         this.button.addActionListener(new ActionListener() {
             @Override
@@ -71,7 +75,8 @@ public class Botones extends JButton
         this.button.setVerticalTextPosition(JButton.BOTTOM); //Establece la posición vertical del texto (ABAJO en este caso)
         this.button.setContentAreaFilled(false); //Quitar el fondo del botón
         this.button.setPressedIcon(iconPressed);
-        this.button.setText(this.nombre + " " + cantidad.getItem() + " Precio: " + this.precio + " B");
+        this.button.setText(this.nombre + " " + cantidad.getItem() + " Precio: " + this.precio + "B");
+
         this.button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -157,6 +162,16 @@ public class Botones extends JButton
     public int getItem()
     {
         return cantidad.getItem();
+    }
+
+    public void addItem(int x)
+    {
+        cantidad.addItem(x);
+    }
+
+    public void setTextDesdeFuera(int item)
+    {
+        button.setText(this.getNombre() + " " + item + " Precio: " + this.getPrecio() + " B");
     }
 }
 

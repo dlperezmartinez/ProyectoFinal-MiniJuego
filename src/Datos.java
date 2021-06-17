@@ -7,7 +7,6 @@ public class Datos
     private AtomicLong bitcoin;
     private AtomicInteger item; //Dato sincronizado
 
-
     //CONSTRUCTOR
     public Datos() {
         this.bitcoin = new AtomicLong(); //Inicializa a 0
