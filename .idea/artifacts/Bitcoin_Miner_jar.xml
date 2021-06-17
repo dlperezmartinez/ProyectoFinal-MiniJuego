@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Bitcoin Miner:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Bitcoin_Miner_jar</output-path>
+    <root id="archive" name="Bitcoin Miner.jar">
+      <element id="module-output" name="Bitcoin Miner" />
+    </root>
+  </artifact>
+</component>

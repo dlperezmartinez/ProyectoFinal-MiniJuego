@@ -1,3 +1,4 @@
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -30,12 +31,35 @@ public class run extends JFrame
 
         File save = new File("save.txt");
 
+        //Comienza música
+        Thread music = new Thread() {
+            public void run() {
+                Clip clip;
+                try {
+                    AudioInputStream input = AudioSystem.getAudioInputStream(new File("Sounds" + sistema.getBarra() + "arcadeLoop.wav"));
+                    clip = AudioSystem.getClip();
+                    clip.open(input);
+                    clip.loop(Clip.LOOP_CONTINUOUSLY);
+                    clip.start();
+                } catch (UnsupportedAudioFileException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (LineUnavailableException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        music.start();
+
         //Comienza el frame
         frame.setTitle("Bitcoin Miner");
         frame.setSize(950, 270);
         frame.setLocation(pantalla.width/2-frame.getSize().width/2, pantalla.height/2-frame.getSize().height/2);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
+        ImageIcon icon = new ImageIcon("Sprites" + sistema.getBarra() + "bitcoin.png");
+        frame.setIconImage(icon.getImage());
 
         //PESTAÑAS
         tabPane = new JTabbedPane();
@@ -59,8 +83,8 @@ public class run extends JFrame
         //CONTENIDO MINER
         //botón bitCoin
         bitcoinButton = new Botones("Bitcoins",
-                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "bitcoin.png"),
-                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "bitcoinPressed.png"));
+                new ImageIcon("Sprites" + sistema.getBarra() + "bitcoin.png"),
+                new ImageIcon("Sprites" + sistema.getBarra() + "bitcoinPressed.png"));
 
         JPanel panelGraficas = new JPanel();
         JPanel panelDescripcionGraficas = new JPanel();
@@ -68,17 +92,20 @@ public class run extends JFrame
 
         bitcoinButton.getActionListeners();
 
+        //arreglos
+        bitcoinsPorSegundoTextArea = new JTextArea();
+        bitcoinsPorSegundoTextArea.setBackground(Color.getColor("beige"));
+
         //adds
         panelWEST.add(bitcoinButton.getButton());
         panelCENTER.add(bitcoinButton.getLabelBitcoin());
         panelCENTER.add(bitcoinButton.getCantidadBitcoin());
         panelSOUTH.add(porSegundo);
-        panelSOUTH.add(bitcoinsPorSegundoTextArea = new JTextArea());
+        panelSOUTH.add(bitcoinsPorSegundoTextArea);
 
         miner.add(panelWEST, BorderLayout.WEST);
         miner.add(panelCENTER, BorderLayout.CENTER);
         miner.add(panelSOUTH, BorderLayout.SOUTH);
-
 
         //CONTENIDO TIENDA
         //rack
@@ -88,27 +115,27 @@ public class run extends JFrame
         rack.getActionListeners();*/
 
         //g1
-        g1 =    new Botones("Gráfica 1", 10, 1,
-                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g1.png"),
-                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g1Pressed.png"));
+        g1 =    new Botones("GT 220", 10, 1,
+                new ImageIcon("Sprites" + sistema.getBarra() + "g1.png"),
+                new ImageIcon("Sprites" + sistema.getBarra() + "g1Pressed.png"));
         g1.getActionListeners();
 
         //g2
-        g2 =    new Botones("Gráfica 2", 100, 10,
-                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g2.png"),
-                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g2Pressed.png"));
+        g2 =    new Botones("GTX 970", 100, 10,
+                new ImageIcon("Sprites" + sistema.getBarra() + "g2.png"),
+                new ImageIcon("Sprites" + sistema.getBarra() + "g2Pressed.png"));
         g2.getActionListeners();
 
         //g3
-        g3 =    new Botones("Gráfica 3", 1000, 50,
-                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g3.png"),
-                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g3Pressed.png"));
+        g3 =    new Botones("Radeon VII", 1000, 50,
+                new ImageIcon("Sprites" + sistema.getBarra() + "g3.png"),
+                new ImageIcon("Sprites" + sistema.getBarra() + "g3Pressed.png"));
         g3.getActionListeners();
 
         //g4
-        g4 =    new Botones("Gráfica 4", 10000, 100,
-                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g4.png"),
-                new ImageIcon(sistema.getRuta() + "Sprites" + sistema.getBarra() + "g4Pressed.png"));
+        g4 =    new Botones("RTX 3090", 10000, 100,
+                new ImageIcon("Sprites" + sistema.getBarra() + "g4.png"),
+                new ImageIcon("Sprites" + sistema.getBarra() + "g4Pressed.png"));
         g4.getActionListeners();
 
         //MÓDULO GUARDAR PARTIDA
@@ -178,6 +205,10 @@ public class run extends JFrame
             g4.setPrecio(listaItems[8]);
             g4.setTextDesdeFuera(listaItems[4]);
         }
+        else
+        {
+            JOptionPane.showMessageDialog(frame, "Dale a la monedita!");
+        }
 
         //adds
         //panelGraficas
@@ -218,6 +249,7 @@ public class run extends JFrame
         panelBitcoinsTienda.add(labelTiendaBitcoin);
 
         JTextArea textareaBitcoins = new JTextArea();
+        textareaBitcoins.setBackground(Color.getColor("beige"));
         panelBitcoinsTienda.add(textareaBitcoins);
 
         tienda.add(panelGraficas, BorderLayout.NORTH);
